@@ -1,6 +1,13 @@
-# Run from project root: streamlit run mlb_prop_app.py
+# Run from repo root: streamlit run app/streamlit_app.py
 
 from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
 
 from datetime import date, datetime
 
@@ -77,7 +84,7 @@ from logic.odds_api import (
     modal_line,
 )
 from logic.stat_weights import get_current_weights
-from mlb_accounts import (
+from app.accounts import (
     authenticate,
     create_user,
     get_user_profile,
@@ -85,7 +92,7 @@ from mlb_accounts import (
     update_display_name,
     update_password,
 )
-from mlb_tracker import (
+from app.tracker import (
     BETA_2026_TEST_TAG,
     compute_summary,
     default_tracker_db_path,
@@ -120,14 +127,14 @@ import json as _json
 import pathlib as _pathlib
 import time as _time
 
-_LEGACY_LOCKS_FILE = _pathlib.Path(__file__).resolve().parent / "locked_lines.json"
+_LEGACY_LOCKS_FILE = _REPO_ROOT / "locked_lines.json"
 
 
 def _user_settings_root() -> _pathlib.Path:
     raw = os.environ.get("MLB_USER_DATA_DIR", "").strip()
     if raw:
         return _pathlib.Path(raw).expanduser().resolve()
-    return _pathlib.Path(__file__).resolve().parent / "user_settings"
+    return _REPO_ROOT / "user_settings"
 
 
 def _locks_file_for_user(user_id: int) -> _pathlib.Path:
@@ -949,7 +956,7 @@ st.set_page_config(
 
 
 def _inject_custom_theme_css() -> None:
-    css_path = _pathlib.Path(__file__).parent / "style.css"
+    css_path = _REPO_ROOT / "assets" / "style.css"
     if not css_path.exists():
         return
     try:

@@ -93,6 +93,6 @@ Use it as a **structured sanity check** next to the line, not as financial advic
 ## Code map (if you want to read the source)
 
 - **Math + verdict:** `logic/projection.py` — `compute_projection`, `verdict`
-- **UI wiring:** `mlb_prop_app.py`
+- **UI wiring:** `app/streamlit_app.py`
 - **Team K% table:** `data/team_k_2025.py`
 - **Optional pitcher prefills:** `data/pitcher_k_stats.py`

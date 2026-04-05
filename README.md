@@ -23,19 +23,20 @@ Or copy `.env.example` to `.env` and add the key (Streamlit does not auto-load `
 ## Run
 
 ```bash
-streamlit run mlb_prop_app.py
+streamlit run app/streamlit_app.py
 ```
 
 ## Project layout
 
 | Path | Purpose |
 |------|--------|
-| `mlb_prop_app.py` | Streamlit entrypoint |
-| `mlb_tracker.py` | SQLite tracker schema and CLI helpers |
-| `mlb_accounts.py` | Auth (bcrypt) |
+| `app/streamlit_app.py` | Streamlit entrypoint |
+| `app/tracker.py` | SQLite tracker schema and CLI (`python -m app.tracker …`) |
+| `app/accounts.py` | Auth (bcrypt) |
+| `mlb_tracker.py` | Thin shim: same CLI as before (`python mlb_tracker.py …`) |
 | `logic/` | Schedule, odds API, projections, player lookup |
 | `data/` | League splits JSON, pitcher projections CSV/JSON, team helpers |
-| `style.css` | App styling |
+| `assets/style.css` | App styling |
 | `docs/` | Algorithm notes |
 
 ## Optional environment variables
