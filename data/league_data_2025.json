@@ -1,0 +1,190 @@
+{
+  "season": 2025,
+  "updated_at_utc": "2026-03-25T02:18:51+00:00",
+  "splits": {
+    "vs_lhp_sit_code": "vl",
+    "vs_rhp_sit_code": "vr"
+  },
+  "teams": {
+    "Arizona Diamondbacks": {
+      "team_id": 109,
+      "overall_k_pct": 21.192,
+      "vs_lhp_k_pct": 19.118,
+      "vs_rhp_k_pct": 22.062
+    },
+    "Atlanta Braves": {
+      "team_id": 144,
+      "overall_k_pct": 22.163,
+      "vs_lhp_k_pct": 21.931,
+      "vs_rhp_k_pct": 22.249
+    },
+    "Baltimore Orioles": {
+      "team_id": 110,
+      "overall_k_pct": 24.203,
+      "vs_lhp_k_pct": 24.617,
+      "vs_rhp_k_pct": 24.04
+    },
+    "Boston Red Sox": {
+      "team_id": 111,
+      "overall_k_pct": 22.865,
+      "vs_lhp_k_pct": 23.129,
+      "vs_rhp_k_pct": 22.759
+    },
+    "Chicago Cubs": {
+      "team_id": 112,
+      "overall_k_pct": 20.724,
+      "vs_lhp_k_pct": 21.411,
+      "vs_rhp_k_pct": 20.485
+    },
+    "Chicago White Sox": {
+      "team_id": 145,
+      "overall_k_pct": 22.783,
+      "vs_lhp_k_pct": 23.008,
+      "vs_rhp_k_pct": 22.704
+    },
+    "Cincinnati Reds": {
+      "team_id": 113,
+      "overall_k_pct": 23.265,
+      "vs_lhp_k_pct": 22.985,
+      "vs_rhp_k_pct": 23.357
+    },
+    "Cleveland Guardians": {
+      "team_id": 114,
+      "overall_k_pct": 22.615,
+      "vs_lhp_k_pct": 23.879,
+      "vs_rhp_k_pct": 22.073
+    },
+    "Colorado Rockies": {
+      "team_id": 115,
+      "overall_k_pct": 25.914,
+      "vs_lhp_k_pct": 24.532,
+      "vs_rhp_k_pct": 26.361
+    },
+    "Detroit Tigers": {
+      "team_id": 116,
+      "overall_k_pct": 23.863,
+      "vs_lhp_k_pct": 22.327,
+      "vs_rhp_k_pct": 24.459
+    },
+    "Houston Astros": {
+      "team_id": 117,
+      "overall_k_pct": 21.373,
+      "vs_lhp_k_pct": 21.832,
+      "vs_rhp_k_pct": 21.248
+    },
+    "Kansas City Royals": {
+      "team_id": 118,
+      "overall_k_pct": 18.242,
+      "vs_lhp_k_pct": 20.906,
+      "vs_rhp_k_pct": 17.407
+    },
+    "Los Angeles Angels": {
+      "team_id": 108,
+      "overall_k_pct": 27.117,
+      "vs_lhp_k_pct": 26.987,
+      "vs_rhp_k_pct": 27.147
+    },
+    "Los Angeles Dodgers": {
+      "team_id": 119,
+      "overall_k_pct": 21.868,
+      "vs_lhp_k_pct": 22.118,
+      "vs_rhp_k_pct": 21.773
+    },
+    "Miami Marlins": {
+      "team_id": 146,
+      "overall_k_pct": 20.303,
+      "vs_lhp_k_pct": 20.895,
+      "vs_rhp_k_pct": 20.051
+    },
+    "Milwaukee Brewers": {
+      "team_id": 158,
+      "overall_k_pct": 20.331,
+      "vs_lhp_k_pct": 19.44,
+      "vs_rhp_k_pct": 20.699
+    },
+    "Minnesota Twins": {
+      "team_id": 142,
+      "overall_k_pct": 22.644,
+      "vs_lhp_k_pct": 23.1,
+      "vs_rhp_k_pct": 22.467
+    },
+    "New York Mets": {
+      "team_id": 121,
+      "overall_k_pct": 21.447,
+      "vs_lhp_k_pct": 22.584,
+      "vs_rhp_k_pct": 20.987
+    },
+    "New York Yankees": {
+      "team_id": 147,
+      "overall_k_pct": 23.464,
+      "vs_lhp_k_pct": 23.571,
+      "vs_rhp_k_pct": 23.424
+    },
+    "Oakland Athletics": {
+      "team_id": 133,
+      "overall_k_pct": 22.858,
+      "vs_lhp_k_pct": 24.814,
+      "vs_rhp_k_pct": 22.239
+    },
+    "Philadelphia Phillies": {
+      "team_id": 143,
+      "overall_k_pct": 21.683,
+      "vs_lhp_k_pct": 23.844,
+      "vs_rhp_k_pct": 20.687
+    },
+    "Pittsburgh Pirates": {
+      "team_id": 134,
+      "overall_k_pct": 23.668,
+      "vs_lhp_k_pct": 25.8,
+      "vs_rhp_k_pct": 22.979
+    },
+    "San Diego Padres": {
+      "team_id": 135,
+      "overall_k_pct": 19.073,
+      "vs_lhp_k_pct": 18.531,
+      "vs_rhp_k_pct": 19.311
+    },
+    "San Francisco Giants": {
+      "team_id": 137,
+      "overall_k_pct": 22.727,
+      "vs_lhp_k_pct": 24.646,
+      "vs_rhp_k_pct": 22.027
+    },
+    "Seattle Mariners": {
+      "team_id": 136,
+      "overall_k_pct": 23.323,
+      "vs_lhp_k_pct": 24.784,
+      "vs_rhp_k_pct": 22.7
+    },
+    "St. Louis Cardinals": {
+      "team_id": 138,
+      "overall_k_pct": 21.766,
+      "vs_lhp_k_pct": 22.176,
+      "vs_rhp_k_pct": 21.609
+    },
+    "Tampa Bay Rays": {
+      "team_id": 139,
+      "overall_k_pct": 23.11,
+      "vs_lhp_k_pct": 24.516,
+      "vs_rhp_k_pct": 22.485
+    },
+    "Texas Rangers": {
+      "team_id": 140,
+      "overall_k_pct": 21.948,
+      "vs_lhp_k_pct": 23.565,
+      "vs_rhp_k_pct": 21.331
+    },
+    "Toronto Blue Jays": {
+      "team_id": 141,
+      "overall_k_pct": 17.783,
+      "vs_lhp_k_pct": 18.58,
+      "vs_rhp_k_pct": 17.5
+    },
+    "Washington Nationals": {
+      "team_id": 120,
+      "overall_k_pct": 22.584,
+      "vs_lhp_k_pct": 25.308,
+      "vs_rhp_k_pct": 21.5
+    }
+  }
+}

@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Local / runtime data (never commit)
+*.db
+*.sqlite
+*.sqlite3
+user_settings/
+locked_lines.json
+daily_best_odds.json
+output.csv
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Streamlit secrets
+.streamlit/secrets.toml
