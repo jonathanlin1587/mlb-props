@@ -437,8 +437,16 @@ def _ensure_authenticated() -> None:
                 )
                 st.session_state[_AUTH_DISPLAY_NAME] = (prof or {}).get("display_name")
                 st.rerun()
+    if not _registration_allowed():
+        st.caption(
+            "No **Create account** section yet — registration is off. "
+            "To allow it: set **MLB_ALLOW_REGISTRATION** to **1** in "
+            "Streamlit **App settings → Secrets** (then redeploy), or "
+            "`export MLB_ALLOW_REGISTRATION=1` locally. "
+            "Otherwise sign in with your bootstrap admin account."
+        )
     if _registration_allowed():
-        with st.expander("Create account"):
+        with st.expander("Create account", expanded=False):
             e2 = st.text_input("New account email", key="reg_email")
             p2 = st.text_input("Choose password", type="password", key="reg_pw")
             p3 = st.text_input("Confirm password", type="password", key="reg_pw2")
