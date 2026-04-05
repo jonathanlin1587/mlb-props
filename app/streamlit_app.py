@@ -26,6 +26,32 @@ try:
 except Exception:
     _st_autorefresh = None
 
+
+def _sync_cloud_secrets_into_environ() -> None:
+    """Copy selected Streamlit Secrets into os.environ before other imports read them."""
+    try:
+        sec = st.secrets
+    except Exception:
+        return
+    for key in (
+        "ODDS_API_KEY",
+        "MLB_ALLOW_REGISTRATION",
+        "MLB_BOOTSTRAP_EMAIL",
+        "MLB_BOOTSTRAP_PASSWORD",
+    ):
+        if os.environ.get(key, "").strip():
+            continue
+        try:
+            if key in sec:
+                val = str(sec[key]).strip()
+                if val:
+                    os.environ[key] = val
+        except Exception:
+            pass
+
+
+_sync_cloud_secrets_into_environ()
+
 from data.league_splits import (
     fetch_league_splits,
     league_data_json_path,
@@ -281,11 +307,102 @@ def _render_account_menu_popover() -> None:
             st.rerun()
 
 
+def _registration_allowed() -> bool:
+    if os.environ.get("MLB_ALLOW_REGISTRATION", "").strip() == "1":
+        return True
+    try:
+        sec = st.secrets
+        if "MLB_ALLOW_REGISTRATION" in sec:
+            v = str(sec["MLB_ALLOW_REGISTRATION"]).strip().lower()
+            return v in ("1", "true", "yes")
+    except Exception:
+        pass
+    return False
+
+
+def _get_bootstrap_credentials() -> tuple[str, str] | None:
+    """Email/password for first user on empty DB (Streamlit Secrets or env).
+
+    Streamlit Community Cloud: add to **App settings → Secrets**, for example::
+
+        MLB_BOOTSTRAP_EMAIL = "you@example.com"
+        MLB_BOOTSTRAP_PASSWORD = "your-secure-password"
+
+    Or a nested block::
+
+        [mlb_bootstrap]
+        email = "you@example.com"
+        password = "your-secure-password"
+    """
+    e = os.environ.get("MLB_BOOTSTRAP_EMAIL", "").strip()
+    p = os.environ.get("MLB_BOOTSTRAP_PASSWORD", "").strip()
+    if e and p:
+        return (e, p)
+    try:
+        sec = st.secrets
+    except Exception:
+        return None
+    try:
+        if "MLB_BOOTSTRAP_EMAIL" in sec and "MLB_BOOTSTRAP_PASSWORD" in sec:
+            e2 = str(sec["MLB_BOOTSTRAP_EMAIL"]).strip()
+            p2 = str(sec["MLB_BOOTSTRAP_PASSWORD"]).strip()
+            if e2 and p2:
+                return (e2, p2)
+    except Exception:
+        pass
+    try:
+        if "mlb_bootstrap" in sec:
+            block = sec["mlb_bootstrap"]
+            e2 = str(block["email"]).strip()
+            p2 = str(block["password"]).strip()
+            if e2 and p2:
+                return (e2, p2)
+    except Exception:
+        pass
+    return None
+
+
+def _ensure_bootstrap_user_if_needed() -> None:
+    """Create the first user when the DB is empty (needed for Streamlit Cloud)."""
+    if st.session_state.get("_mlb_bootstrap_tried"):
+        return
+    creds = _get_bootstrap_credentials()
+    if creds is None:
+        return
+    st.session_state._mlb_bootstrap_tried = True
+    email, password = creds
+    dbp = default_tracker_db_path()
+    try:
+        dbp.parent.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        return
+    conn = sqlite3.connect(str(dbp))
+    try:
+        init_db(conn)
+        row = conn.execute("SELECT COUNT(*) FROM users").fetchone()
+        n = int(row[0]) if row else 0
+        if n > 0:
+            return
+        create_user(conn, email, password)
+    except ValueError as ex:
+        st.session_state._mlb_bootstrap_error = str(ex)
+    except sqlite3.IntegrityError:
+        pass
+    except OSError as ex:
+        st.session_state._mlb_bootstrap_error = str(ex)
+    finally:
+        conn.close()
+
+
 def _ensure_authenticated() -> None:
     if _AUTH_USER_ID not in st.session_state:
         st.session_state[_AUTH_USER_ID] = None
     if st.session_state.get(_AUTH_USER_ID) is not None:
         return
+    _ensure_bootstrap_user_if_needed()
+    err = st.session_state.pop("_mlb_bootstrap_error", None)
+    if err:
+        st.error(f"Could not create bootstrap account: {err}")
     st.markdown("## Sign in")
     dbp = default_tracker_db_path()
     with st.form("login_form"):
@@ -295,7 +412,9 @@ def _ensure_authenticated() -> None:
     if submitted:
         if not dbp.is_file():
             st.error(
-                "No tracker database yet. From the project root run "
+                "No tracker database yet. **Streamlit Cloud:** add "
+                "`MLB_BOOTSTRAP_EMAIL` and `MLB_BOOTSTRAP_PASSWORD` under App settings → Secrets, "
+                "then redeploy. **Local:** run "
                 "`python mlb_tracker.py bootstrap-admin --email you@example.com` "
                 "(set `MLB_BOOTSTRAP_PASSWORD` or enter password when prompted)."
             )
@@ -318,7 +437,7 @@ def _ensure_authenticated() -> None:
                 )
                 st.session_state[_AUTH_DISPLAY_NAME] = (prof or {}).get("display_name")
                 st.rerun()
-    if os.environ.get("MLB_ALLOW_REGISTRATION", "").strip() == "1":
+    if _registration_allowed():
         with st.expander("Create account"):
             e2 = st.text_input("New account email", key="reg_email")
             p2 = st.text_input("Choose password", type="password", key="reg_pw")

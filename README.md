@@ -48,6 +48,25 @@ streamlit run app/streamlit_app.py
 | `MLB_USER_DATA_DIR` | Per-user `user_settings` root |
 | `MLB_ODDS_CACHE_PATH` | Same-day odds JSON cache |
 | `MLB_ALLOW_REGISTRATION` | Set to `1` to allow new accounts |
+| `MLB_BOOTSTRAP_EMAIL` | With `MLB_BOOTSTRAP_PASSWORD`, creates the first user when the DB has no accounts (Streamlit Cloud / fresh deploy) |
+| `MLB_BOOTSTRAP_PASSWORD` | Password for that first user |
+
+## Streamlit Community Cloud
+
+The tracker DB on Cloud is **not** your laptop’s SQLite file. To get a **working login** on a new deploy, add **Secrets** (TOML), for example:
+
+```toml
+ODDS_API_KEY = "your_the_odds_api_key"
+
+MLB_BOOTSTRAP_EMAIL = "you@example.com"
+MLB_BOOTSTRAP_PASSWORD = "choose-a-strong-password"
+```
+
+Redeploy after saving secrets. Sign in with that email and password.
+
+Optional: `MLB_ALLOW_REGISTRATION = "1"` in secrets (as a string) if you want the in-app “Create account” flow for extra users.
+
+**Note:** Pick history on Cloud may reset when the service recycles storage; for durable history use a host with a persistent disk or an external database.
 
 ## Push to GitHub
 
