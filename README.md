@@ -48,6 +48,18 @@ streamlit run mlb_prop_app.py
 | `MLB_ODDS_CACHE_PATH` | Same-day odds JSON cache |
 | `MLB_ALLOW_REGISTRATION` | Set to `1` to allow new accounts |
 
+## Push to GitHub
+
+1. Create an empty repo on GitHub (no README/license) named e.g. `mlb-props`.
+2. In this folder:
+
+```bash
+git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
+git push -u origin main
+```
+
+Use SSH if you prefer: `git@github.com:YOUR_USER/YOUR_REPO.git`.
+
 ## License
 
 Add a `LICENSE` file if you open-source this repo.
